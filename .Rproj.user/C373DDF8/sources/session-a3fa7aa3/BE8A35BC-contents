@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "VISUALISATION_REDESIGN"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - projects.qmd
+
+format:
+  html:
+    theme: sandstone
+    mainfront: arial
+    fontsize: 1.5rem
+    fontcolor: "grey"
+    linkcolor: "red"
+    monofont: courier new
+    css: styles.css
+    toc: true
+
+editor: visual
+

@@ -1,0 +1,12 @@
+---
+title: "VISUALISATION"
+image: data.png
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 15em
+  links: 
+    - text: Github
+      icon: github
+      href: https://github.com/Rishikabaddam20/mid2
+---

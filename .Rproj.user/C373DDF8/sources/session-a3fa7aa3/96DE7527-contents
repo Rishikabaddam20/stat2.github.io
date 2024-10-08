@@ -1,0 +1,271 @@
+---
+title: "PROJECT"
+format: dashboard
+---
+
+# visual_Redesign1
+
+## row{.tabset}
+
+### tab1
+#### row1
+
+<img src="project_tab1.png" alt="Description of Image" width="50%">
+
+#### row2
+```{r}
+#NEW_GRAPH
+library(ggplot2)
+library(tidyverse)
+
+
+# Data for the donut chart
+meal_summary <- data.frame(
+  Type = c("Breakfast", "Lunch", "Dinner", "Snacks", "Caloreies left"),
+  Calories = c(1488, 704, 905, 303, 100)  # Total calories
+  #Percentage = c(43, 21, 27, 10)  # Percentages
+)
+
+meal_summary <- meal_summary %>%
+  mutate(Percentage = round((Calories/3500)*100))
+
+# Step 1: Calculate the midpoint of the labels
+meal_summary <- meal_summary %>%
+  arrange(desc(Type)) %>%
+  mutate(ypos = cumsum(Percentage) - 0.5 * Percentage)
+
+# Step 2: Create the donut chart
+ggplot(meal_summary, aes(x = 2, y = Percentage, fill = Type)) +
+  geom_bar(stat = "identity", width = 1, color = "white") +
+  coord_polar("y", start = 0) +  # Make it circular
+  xlim(0.5, 2.5) +  # Create a hole in the middle
+  geom_text(aes(y = ypos, label = paste0(Percentage, "%")), color = "white", size = 5) +  # Percentage labels
+  theme_void() +  # Remove background and axis
+  theme(legend.position = "right") +
+  scale_fill_brewer(palette = "Set2")  +
+  labs(title = "Calories Distribution by Meal Type(NEW_VISUAL)")
+
+```
+
+
+### tab2
+#### row1
+
+<img src="project_tab1.png" alt="Description of Image" width="50%">
+
+#### row2
+```{r}
+library(ggplot2)
+library(dplyr)
+
+
+meal_data <- data.frame(
+  Meal_name = c("Brown Bread", "Boiled eggs", "Egg whites", "Rice", "Curry", "Curd", "Chicken breast", "Rice", 
+                "Curry", "Chicken breast", "Milk", "Whey protein", "Almonds", "Boiled Eggs", "Banana", "Oats", "Peanut butter"),
+  Quantity = c("2", "2", "4", "2 cups", "1 bowl", "100 gms", "200 gms", "2.25 cups", "1 bowl", "75 gms", "10 oz", 
+               "66 gms", "10 gms", "2", "1", "130 gms", "20 gms"),
+  Calories = c(121, 143, 69, 400, 186, 61, 288, 450, 186, 108, 188, 124, 69, 143, 105, 502, 129),
+  Type = c("snack", "snack", "snack", "Dinner", "Dinner", "Dinner", "Dinner", "Lunch", "Lunch", "Lunch", 
+           "Breakfast", "Breakfast", "Breakfast", "Breakfast", "Breakfast", "Breakfast", "Breakfast")
+)
+
+
+# Step 1: Calculate the percentage of calories for each meal within each Type
+meal_data <- meal_data %>%
+  group_by(Type) %>%
+  mutate(Percentage = Calories / sum(Calories) * 100)
+
+custom_colors <- c("red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", 
+                   "cyan", "magenta", "grey", "darkgreen", "lightblue", "darkred", "lightgreen")
+# Step 2: Create the stacked bar plot with calories and percentage labels
+ggplot(meal_data, aes(x = Type, y = Calories, fill = Meal_name)) +
+  geom_bar(stat = "identity") + 
+  geom_text(aes(label = paste0(Calories, " cal (", round(Percentage, 1), "%)")),
+            position = position_stack(vjust = 0.5), size = 3) +  # Add calorie and percentage labels
+  labs(title = "Calories and Percentage per Meal Type",
+       x = "Meal Type", 
+       y = "Calories") +
+  theme_minimal() +
+  scale_fill_manual(values = custom_colors)
+```
+
+
+### tab3
+```{r}
+
+```
+
+
+# visual_Redesign2
+## ROW{.tabset}
+### tab1
+#### row1
+
+<img src="project_visual1.png" alt="Description of Image" width="50%">
+
+#### row2
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+library(ggimage)
+library(tidyverse)
+
+
+# Visualization for figure 1: Data frame for market share
+market_data <- data.frame(
+  Country = c("Norway", "Iceland", "Sweden", "Denmark", "Netherlands", "Belgium", "Finland", "Switzerland"),
+  Market_Share = c(29, 18, 11, 11, 8.3, 8.2, 8.1, 5.8),
+  Flag_URL = c('norway.png',
+               'iceland.png',
+               'sweden.png',
+               'denmark.png',
+               'netherlands.png',
+               'belgium.png',
+               'finland.png',
+               'swiss.png')
+)
+
+# Horizontal bar chart for market share
+plot1=ggplot(market_data, aes(x = reorder(Country, Market_Share), y = Market_Share)) +
+  geom_bar(stat = "identity", fill = "seagreen") +
+  geom_image(aes(image = Flag_URL), size = 0.05) +  # Removed 'by' argument
+  labs(title = "Top Markets by PEV Market Share (December 2023)",
+       x = "Country", y = "Percentage of Plug-in  Cars in Use") +
+  theme_minimal()
+
+
+
+sales_data <- data.frame(
+  Country = c("USA", "World", "Europe", "France", "UK", "Germany", "China"),
+  Sales_Volume = c(2.1, 3.2, 3.8, 4.1, 5.0, 5.4, 7.6),
+  Flag_URL1 = c('usa.png','world.png',
+                'europe.png','france.png',
+                'uk.png','germeny.png',
+                'china.png')
+)
+
+#sales volume
+plot2=ggplot(sales_data, aes(x = reorder(Country, Sales_Volume), y = Sales_Volume)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_image(aes(image = Flag_URL1), size = 0.05) +
+  labs(title = "Top Markets by PEV Sales Volume (December 2023)",
+       x = "Country", y = "Percentage of Plug-in Cars in Use") +
+  theme_minimal()
+
+#plot
+grid.arrange(plot1, plot2, ncol = 1)
+```
+
+
+### tab2
+#### row1
+
+<img src="project_visual1.png" alt="Description of Image" width="50%">
+
+#### row2
+```{r}
+
+library(plotly)
+
+# Data for the PEV volume by country
+pev_data <- data.frame(
+  Country = c("USA", "France", "UK", "Germany", "China", "Norway", "Iceland", 
+              "Sweden", "Denmark", "Netherlands", "Belgium", "Finland", "Switzerland"),
+  Code = c("USA", "FRA", "GBR", "DEU", "CHN", "NOR", "ISL", 
+           "SWE", "DNK", "NLD", "BEL", "FIN", "CHE"),
+  PEV_Share = c(2.1, 4.1, 5.0, 5.4, 7.6, 29, 18, 11, 11, 8.3, 8.2, 8.1, 5.8)
+)
+
+# Create the choropleth map for PEV Share
+fig <- plot_ly(pev_data, 
+               type = 'choropleth', 
+               locations = ~Code, 
+               z = ~PEV_Share, 
+               text = ~paste(Country, "<br>PEV Share:", PEV_Share, "%"),
+               colorscale = 'Greens', 
+               autocolorscale = FALSE, 
+               reversescale = TRUE, 
+               marker = list(line = list(color = 'rgb(180,180,180)', width = 0.5)),
+               colorbar = list(title = 'PEV Volume (%)'))
+
+# Update the layout for the PEV map
+fig <- fig %>% layout(
+  title = 'PEV Volume by Country',
+  geo = list(
+    showframe = FALSE,
+    showcoastlines = TRUE,
+    showland = TRUE,
+    landcolor = "rgb(217, 217, 217)",
+    coastlinecolor = "rgb(180, 180, 180)",
+    projection = list(type = 'Mercator'),
+    countrycolor = 'rgb(180, 180, 180)',
+    countrywidth = 0.5
+  )
+)
+
+# Data for the Market Share by country
+market_share <- data.frame(
+  Country = c("Norway", "Iceland", "Sweden", "Denmark", "Netherlands", "Belgium", "Finland", "Switzerland"),
+  Code = c("NOR", "ISL", "SWE", "DNK", "NLD", "BEL", "FIN", "CHE"),
+  Market_Share = c(29, 18, 11, 11, 8.3, 8.2, 8.1, 5.8)
+)
+
+# Create the choropleth map for Market Share
+fig2 <- plot_ly(market_share, 
+                 type = 'choropleth', 
+                 locations = ~Code, 
+                 z = ~Market_Share, 
+                 text = ~paste(Country, "<br>Market Share:", Market_Share, "%"),
+                 colorscale = 'Blues',
+                 autocolorscale = FALSE, 
+                 reversescale = TRUE, 
+                 marker = list(line = list(color = 'rgb(180,180,180)', width = 0.5)),
+                 colorbar = list(title = 'Market Share (%)'))
+
+# Update the layout for the Market Share map
+fig2 <- fig2 %>% layout(
+  title = 'Market Share by Country',
+  geo = list(
+    showframe = FALSE,
+    showcoastlines = TRUE,
+    showland = TRUE,
+    landcolor = "rgb(217, 217, 217)",
+    coastlinecolor = "rgb(180, 180, 180)",
+    projection = list(type = 'Mercator'),
+    countrycolor = 'rgb(180, 180, 180)',
+    countrywidth = 0.5
+  )
+)
+
+# Create a subplot to show both maps side by side
+combined_fig <- subplot(fig, fig2, nrows = 1, margin = 0.05)
+
+# Show the combined plot
+combined_fig
+
+```
+
+### tab3
+```{r}
+
+```
+
+
+# video
+
+
+## column1{height=30%}
+```{r}
+plot(iris)
+```
+
+
+
+
+## column2{height=70%}
+hellloooooooooooo
+helloooooooo
+
+
+

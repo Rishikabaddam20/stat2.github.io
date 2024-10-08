@@ -1,0 +1,15 @@
+{
+  "hash": "a2c0b260b2a2c879f36943595886dd93",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"mid_project\"\nimage: data.png\nabout: \n  template: jolla\n  image-shape: round\n  image-width: 15em\n  links: \n    - text: Github\n      icon: github\n      href: https://github.com/Rishikabaddam20/mid2\n---\n\n\nThis is a Quarto website.\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

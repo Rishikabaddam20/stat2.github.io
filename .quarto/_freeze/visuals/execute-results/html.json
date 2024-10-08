@@ -1,0 +1,17 @@
+{
+  "hash": "cad0d4dc39bae2dc7719c72c2385ec70",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"visuals\"\nformat: dashboard\n---\n\n\n# visual1\n\n## row{.tabset}\n### tab1\n\n::: {.cell}\n\n:::\n\n### tab2\n\n::: {.cell}\n::: {.cell-output-display}\n![](visuals_files/figure-html/unnamed-chunk-2-1.png){width=768}\n:::\n:::\n\n\n### tab3\n\n::: {.cell}\n\n:::\n\n\n\n# visual2\n## ROW{.tabset}\n### tab1\n\n::: {.cell}\n\n:::\n\n\n### tab2\n\n::: {.cell}\n\n:::\n\n\n### tab3\n\n::: {.cell}\n\n:::\n\n\n\n# video\n\n\n## row1{height=50%}\n\n::: {.cell}\n::: {.cell-output-display}\n![](visuals_files/figure-html/unnamed-chunk-7-1.png){width=768}\n:::\n:::\n\n\n\n\n\n## row2{height=50%}\nhellloooooooooooo\nhelloooooooo\n\n\n\n",
+    "supporting": [
+      "visuals_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
