@@ -8,5 +8,5 @@ about:
   links: 
     - text: Github
       icon: github
-      href: https://github.com/Rishikabaddam20/mid2
+      href: https://github.com/Rishikabaddam20/stat2
 ---
